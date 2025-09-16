@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Header from "./components/Header";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
@@ -6,6 +7,8 @@ import Banner from "./components/Banner";
 import Image from "next/image";
 
 export default function Home() {
+  const router = useRouter();
+  
   const cards = [
     {
       titulo: "Dica de Alimentação",
@@ -41,7 +44,7 @@ export default function Home() {
       <Banner 
         titulo="Bem-vindo ao DogCare! 🦴"
         subtitulo="Seu guia completo de cuidados caninos! Aqui você encontra informações essenciais para garantir o bem-estar do seu melhor amigo de quatro patas."
-        imagem="/images/banner.png"
+        imagem="https://cdn.jornaldaparaiba.com.br/wp-content/uploads/2024/01/900x0/racas-de-cachorro-7.webp?fallback=https%3A%2F%2Fcdn.jornaldaparaiba.com.br%2Fwp-content%2Fuploads%2F2024%2F01%2Fracas-de-cachorro.jpg%3Fxid%3D650492&xid=650492"
       />
 
       <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -54,7 +57,7 @@ export default function Home() {
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-4 sm:gap-6 lg:gap-8 justify-center items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 justify-items-center">
           {cards.map((card, idx) => (
             <Card key={idx} {...card} />
           ))}
@@ -70,10 +73,16 @@ export default function Home() {
             Descubra mais dicas detalhadas, conselhos práticos e muito mais para cuidar melhor do seu pet
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button 
+              onClick={() => router.push('/listagem')}
+              className="bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            >
               Ver Todas as Dicas
             </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-500 transition-colors">
+            <button 
+              onClick={() => router.push('/quiz')}
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-500 transition-colors"
+            >
               Fazer Quiz Interativo
             </button>
           </div>

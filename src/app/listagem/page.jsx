@@ -95,7 +95,7 @@ export default function Listagem() {
   }, []);
 
   const handleDetalhes = (categoria) => {
-    router.push(`/listagem/${categoria.id}`);
+    router.push(`/categorias/${categoria.id}`);
     
     toast.info(`🔍 Carregando categoria: ${categoria.titulo}`, {
       position: "top-right",
@@ -141,10 +141,10 @@ export default function Listagem() {
 
         <section className="relative bg-gradient-to-r from-blue-600 via-teal-600 to-green-600 py-20 overflow-hidden">
 
-          <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 opacity-30">
             <img 
-              src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-              alt="Cachorro feliz" 
+              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Festilo-de-vida%2Fpets%2Fdachshund-saiba-tudo-sobre-a-raca-do-cachorro-salsicha-1.3241969&psig=AOvVaw3bifv3JsDwOmrfEMZ5SWuY&ust=1758120329613000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjXl_HC3Y8DFQAAAAAdAAAAABAE" 
+              alt="Banner DogCare" 
               className="w-full h-full object-cover"
             />
           </div>

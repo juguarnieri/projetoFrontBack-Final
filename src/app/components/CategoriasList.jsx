@@ -42,41 +42,40 @@ export default function CategoriasList({ categorias = [], onDetalhes, searchTerm
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {categoriasFiltradas.length === 0 ? (
-          <div className="col-span-full text-center py-12">
-            <div className="text-6xl mb-4">📚</div>
-            <p className="text-gray-500 text-xl">
-              {searchTerm ? `Nenhuma categoria encontrada para "${searchTerm}".` : "Nenhuma categoria encontrada."}
-            </p>
-          </div>
-        ) : (
-          categoriasFiltradas.map((categoria, index) => {
+      {categoriasFiltradas.length === 0 ? (
+        <div className="text-center py-12">
+          <div className="text-6xl mb-4">📚</div>
+          <p className="text-gray-500 text-xl">
+            {searchTerm ? `Nenhuma categoria encontrada para "${searchTerm}".` : "Nenhuma categoria encontrada."}
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 justify-items-center">
+          {categoriasFiltradas.map((categoria, index) => {
             const cor = cores[index % cores.length];
             return (
               <div
                 key={categoria.id || index}
-                className={`${cor.bg} ${cor.border} ${cor.hover} rounded-2xl border p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1 max-w-sm mx-auto w-full`}
+                className={`${cor.bg} ${cor.border} ${cor.hover} rounded-2xl border p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1 max-w-xs w-full`}
                 onClick={() => handleCardClick(categoria)}
                 onMouseEnter={() => setHoveredCard(categoria.id || index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-3">
                   <img
                     src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
                     alt={categoria.name || categoria.titulo || categoria.title || 'Categoria'}
-                    className="w-20 h-20 object-cover rounded-xl shadow-md border border-gray-200 bg-white"
+                    className="w-32 h-32 object-cover rounded-xl shadow-lg border border-gray-200 bg-white"
                     style={{ backgroundColor: '#fff' }}
                   />
                 </div>
-                <h3 className={`text-xl font-bold ${cor.text} mb-3 text-center leading-tight`}>
+                <h3 className={`text-lg font-bold ${cor.text} mb-2 text-center leading-tight`}>
                   {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
                 </h3>
-
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 text-center line-clamp-3">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center line-clamp-2">
                   {categoria.descricao || categoria.description || 'Descrição da categoria'}
                 </p>
-                <div className="flex justify-center items-center pt-4 border-t border-gray-200 border-opacity-50">
+                <div className="flex justify-center items-center pt-2">
                   <span className={`text-xs px-4 py-2 rounded-full ${cor.text} bg-white bg-opacity-80 transition-all duration-300 font-medium cursor-pointer ${
                     hoveredCard === (categoria.id || index) ? 'bg-opacity-100 shadow-md transform scale-105' : ''
                   }`}>
@@ -85,9 +84,9 @@ export default function CategoriasList({ categorias = [], onDetalhes, searchTerm
                 </div>
               </div>
             );
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
     </div>
   );
 }
