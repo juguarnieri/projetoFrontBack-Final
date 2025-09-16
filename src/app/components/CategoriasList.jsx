@@ -1,17 +1,32 @@
 "use client";
 import { useState } from "react";
 
-export default function CategoriasList({ categorias = [] }) {
+export default function CategoriasList({ categorias = [], onDetalhes, searchTerm = "" }) {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const categoriasArray = Array.isArray(categorias) ? categorias : [];
   
+  // Filtrar categorias por termo de busca
+  const categoriasFiltradas = categoriasArray.filter(categoria => {
+    if (!searchTerm) return true;
+    
+    const titulo = categoria.titulo || categoria.title || categoria.name || '';
+    const descricao = categoria.descricao || categoria.description || '';
+    
+    return titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           descricao.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+  
   console.log('🔍 CategoriasList recebeu:', categorias);
   console.log('🔍 É array?:', Array.isArray(categorias));
   console.log('🔍 Array processado:', categoriasArray);
+  console.log('🔍 Categorias filtradas:', categoriasFiltradas);
 
   const handleCardClick = (categoria) => {
     console.log('Categoria selecionada:', categoria);
+    if (onDetalhes) {
+      onDetalhes(categoria);
+    }
   };
 
   const cores = [
@@ -28,13 +43,15 @@ export default function CategoriasList({ categorias = [] }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {categoriasArray.length === 0 ? (
+        {categoriasFiltradas.length === 0 ? (
           <div className="col-span-full text-center py-12">
             <div className="text-6xl mb-4">📚</div>
-            <p className="text-gray-500 text-xl">Nenhuma categoria encontrada.</p>
+            <p className="text-gray-500 text-xl">
+              {searchTerm ? `Nenhuma categoria encontrada para "${searchTerm}".` : "Nenhuma categoria encontrada."}
+            </p>
           </div>
         ) : (
-          categoriasArray.map((categoria, index) => {
+          categoriasFiltradas.map((categoria, index) => {
             const cor = cores[index % cores.length];
             return (
               <div
@@ -44,24 +61,23 @@ export default function CategoriasList({ categorias = [] }) {
                 onMouseEnter={() => setHoveredCard(categoria.id || index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="text-center mb-6">
-                  <div className="text-5xl mb-4 transform transition-transform duration-300 hover:scale-110">
-                    {categoria.icone || categoria.icon || '📚'}
-                  </div>
-                  <h3 className={`text-xl font-bold ${cor.text} mb-3 leading-tight`}>
-                    {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
-                  </h3>
+                <div className="flex justify-center mb-4">
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
+                    alt={categoria.name || categoria.titulo || categoria.title || 'Categoria'}
+                    className="w-20 h-20 object-cover rounded-xl shadow-md border border-gray-200 bg-white"
+                    style={{ backgroundColor: '#fff' }}
+                  />
                 </div>
-                
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                <h3 className={`text-xl font-bold ${cor.text} mb-3 text-center leading-tight`}>
+                  {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
+                </h3>
+
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 text-center line-clamp-3">
                   {categoria.descricao || categoria.description || 'Descrição da categoria'}
                 </p>
-                
-                <div className="flex justify-between items-center pt-4 border-t border-gray-200 border-opacity-50">
-                  <span className={`text-sm font-semibold ${cor.text}`}>
-                    {categoria.artigos || categoria.articles_count || categoria.count || 0} artigos
-                  </span>
-                  <span className={`text-xs px-3 py-2 rounded-full ${cor.text} bg-white bg-opacity-70 transition-all duration-300 font-medium ${
+                <div className="flex justify-center items-center pt-4 border-t border-gray-200 border-opacity-50">
+                  <span className={`text-xs px-4 py-2 rounded-full ${cor.text} bg-white bg-opacity-80 transition-all duration-300 font-medium cursor-pointer ${
                     hoveredCard === (categoria.id || index) ? 'bg-opacity-100 shadow-md transform scale-105' : ''
                   }`}>
                     Ver mais →

@@ -19,9 +19,6 @@ export default function Header() {
             <Link href="/listagem" className="text-white hover:text-orange-200 transition-colors duration-200 font-medium">
               Listagem
             </Link>
-            <Link href="/detalhes" className="text-white hover:text-orange-200 transition-colors duration-200 font-medium">
-              Detalhes
-            </Link>
             <Link href="/sobre-mim" className="text-white hover:text-orange-200 transition-colors duration-200 font-medium">
               Sobre Mim
             </Link>

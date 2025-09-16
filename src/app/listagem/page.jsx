@@ -22,7 +22,7 @@ export default function Listagem() {
     const fetchCategorias = async () => {
       try {
         setLoading(true);
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/categories`;
         console.log('🔗 Fazendo requisição para:', apiUrl);
         console.log('🌍 NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
         
@@ -95,7 +95,7 @@ export default function Listagem() {
   }, []);
 
   const handleDetalhes = (categoria) => {
-    router.push(`/categorias/${categoria.id}`);
+    router.push(`/listagem/${categoria.id}`);
     
     toast.info(`🔍 Carregando categoria: ${categoria.titulo}`, {
       position: "top-right",
