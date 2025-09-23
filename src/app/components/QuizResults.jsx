@@ -7,39 +7,39 @@ export default function QuizResults({ score, totalQuestions, answers, questions,
   
   const getScoreData = () => {
     if (percentage >= 90) return {
-      title: "🏆 EXPERT EM CUIDADOS CANINOS!",
-      message: "Parabéns! Você é um verdadeiro especialista em cuidados com cães!",
-      color: "from-yellow-400 to-orange-500",
-      emoji: "🎉",
-      level: "Expert"
+      title: "🏆 EXPERT EM CUIDADOS CANINOS! 🐕‍⚕️",
+      message: "🎉 Parabéns! Você é um verdadeiro especialista em cuidados com cães! 🐾",
+      color: "from-green-400 to-emerald-500",
+      emoji: "🐕‍⚕️",
+      level: "Expert Canino"
     };
     if (percentage >= 75) return {
-      title: "⭐ MUITO BOM!",
-      message: "Excelente! Você tem ótimos conhecimentos sobre cuidados caninos!",
-      color: "from-green-400 to-emerald-500",
-      emoji: "👏",
-      level: "Avançado"
+      title: "⭐ MUITO BOM! 🐕",
+      message: "🎾 Excelente! Você tem ótimos conhecimentos sobre cuidados caninos! 🦴",
+      color: "from-green-500 to-orange-500",
+      emoji: "�‍🦺",
+      level: "Cuidador Avançado"
     };
     if (percentage >= 60) return {
-      title: "👍 BOM TRABALHO!",
-      message: "Muito bem! Você tem uma boa base de conhecimentos!",
-      color: "from-blue-400 to-cyan-500",
-      emoji: "😊",
-      level: "Intermediário"
+      title: "👍 BOM TRABALHO! 🐶",
+      message: "🎯 Muito bem! Você tem uma boa base de conhecimentos caninos! 🐾",
+      color: "from-orange-400 to-yellow-500",
+      emoji: "�",
+      level: "Amigo dos Cães"
     };
     if (percentage >= 40) return {
-      title: "📚 CONTINUE APRENDENDO!",
-      message: "Bom começo! Com mais estudo você será um expert!",
-      color: "from-purple-400 to-pink-500",
-      emoji: "💪",
-      level: "Iniciante"
+      title: "📚 CONTINUE APRENDENDO! 🦮",
+      message: "💪 Bom começo! Com mais estudo você será um expert em cuidados caninos! 🐾",
+      color: "from-yellow-400 to-orange-500",
+      emoji: "�‍🦺",
+      level: "Aprendiz Canino"
     };
     return {
-      title: "🤔 VAMOS ESTUDAR MAIS?",
-      message: "Que tal explorar nossos artigos sobre cuidados caninos?",
-      color: "from-red-400 to-pink-500",
-      emoji: "📖",
-      level: "Novato"
+      title: "🤔 VAMOS ESTUDAR MAIS? 🐶",
+      message: "📖 Que tal explorar nossos artigos sobre cuidados caninos? 🎾",
+      color: "from-orange-400 to-red-500",
+      emoji: "�",
+      level: "Iniciante"
     };
   };
 
@@ -50,10 +50,10 @@ export default function QuizResults({ score, totalQuestions, answers, questions,
       <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-all duration-500 relative overflow-hidden z-10">
 
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(15)].map((_, i) => (
             <div
               key={i}
-              className="absolute text-2xl animate-bounce"
+              className="absolute text-xl animate-pulse opacity-30"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -61,13 +61,15 @@ export default function QuizResults({ score, totalQuestions, answers, questions,
                 animationDuration: `${2 + Math.random() * 2}s`
               }}
             >
-              {['🎉', '🏆', '⭐', '🎊', '🥳'][Math.floor(Math.random() * 5)]}
+              {['🐕', '🐾', '🦴', '�', '🏆'][Math.floor(Math.random() * 5)]}
             </div>
           ))}
         </div>
 
         <div className="relative z-10">
-          <div className="text-8xl mb-6 animate-bounce">{scoreData.emoji}</div>
+          <div className="w-24 h-24 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-pulse">
+            <span className="text-white text-4xl">{scoreData.emoji}</span>
+          </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             {scoreData.title}
@@ -91,26 +93,34 @@ export default function QuizResults({ score, totalQuestions, answers, questions,
           </div>
 
           {/* Performance Badges */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-1 mb-8">
-            <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-4 text-left">
-              <div className="text-3xl mb-2">🎯</div>
-              <div className="font-bold text-blue-800">Precisão</div>
-              <div className="text-blue-600">{percentage}%</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-4 text-left hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mb-3">
+                <span className="text-white text-xl">🎯</span>
+              </div>
+              <div className="font-bold text-green-800">Precisão</div>
+              <div className="text-green-600 text-lg font-semibold">{percentage}%</div>
             </div>
-            <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-4 text-left">
-              <div className="text-3xl mb-2">✅</div>
-              <div className="font-bold text-green-800">Corretas</div>
-              <div className="text-green-600">{score}</div>
+            <div className="bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl p-4 text-left hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-3">
+                <span className="text-white text-xl">🐕</span>
+              </div>
+              <div className="font-bold text-emerald-800">Corretas</div>
+              <div className="text-emerald-600 text-lg font-semibold">{score}</div>
             </div>
-            <div className="bg-gradient-to-br from-red-100 to-red-200 rounded-2xl p-4 text-left">
-              <div className="text-3xl mb-2">❌</div>
-              <div className="font-bold text-red-800">Erradas</div>
-              <div className="text-red-600">{totalQuestions - score}</div>
+            <div className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-4 text-left hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mb-3">
+                <span className="text-white text-xl">🐶</span>
+              </div>
+              <div className="font-bold text-orange-800">Erradas</div>
+              <div className="text-orange-600 text-lg font-semibold">{totalQuestions - score}</div>
             </div>
-            <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-4 text-left">
-              <div className="text-3xl mb-2">📊</div>
-              <div className="font-bold text-purple-800">Nível</div>
-              <div className="text-purple-600 text-sm">{scoreData.level}</div>
+            <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl p-4 text-left hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mb-3">
+                <span className="text-white text-xl">🏆</span>
+              </div>
+              <div className="font-bold text-yellow-800">Nível</div>
+              <div className="text-yellow-600 text-sm font-semibold">{scoreData.level}</div>
             </div>
           </div>
 
@@ -179,23 +189,23 @@ export default function QuizResults({ score, totalQuestions, answers, questions,
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-1 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={onRestart}
               className="group bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-full font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
             >
               <span className="flex items-center justify-center">
-                🔄 Tentar Novamente
-                <span className="ml-2 group-hover:rotate-180 transition-transform duration-300">🎯</span>
+                🔄 Tentar Novamente 🐕
+                <span className="ml-2 group-hover:rotate-180 transition-transform duration-300">�</span>
               </span>
             </button>
             
             <button
               onClick={onGoToArticles}
-              className="group bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-4 rounded-full font-bold hover:from-green-600 hover:to-teal-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
+              className="group bg-gradient-to-r from-green-500 to-orange-500 text-white px-8 py-4 rounded-full font-bold hover:from-green-600 hover:to-orange-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl"
             >
               <span className="flex items-center justify-center">
-                📚 Estudar Mais
+                📚 Estudar Mais 🐾
                 <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </span>
             </button>

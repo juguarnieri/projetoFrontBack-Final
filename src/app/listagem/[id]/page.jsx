@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Banner from "../../components/Banner";
 import ScrollToTop from "../../components/ScrollToTop";
 
 export default function CategoriaDetalhes() {
@@ -22,112 +23,22 @@ export default function CategoriaDetalhes() {
     const fetchCategoriaEArtigos = async () => {
       try {
         setLoading(true);
-        setError(null);
+        console.log('� ID da categoria:', categoriaId);
 
-        const categoriaUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categoriaId}`;
-        console.log('🔗 Buscando categoria:', categoriaUrl);
-        const categoriaResponse = await axios.get(categoriaUrl);
-        console.log('✅ Categoria encontrada:', categoriaResponse.data);
+        const categoriaResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categoriaId}`);
         setCategoria(categoriaResponse.data.data);
 
-        let artigosData = [];
-        const possiveisUrls = [
-          `${process.env.NEXT_PUBLIC_API_URL}/api/articles?category_id=${categoriaId}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categoriaId}/articles`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/articles/category/${categoriaId}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/articles?categoria_id=${categoriaId}`
-        ];
-        
-        let artigosEncontrados = false;
-        
-        for (const url of possiveisUrls) {
-          try {
-            console.log('� Tentando URL:', url);
-            const artigosResponse = await axios.get(url);
-            console.log('✅ Resposta da URL:', url, artigosResponse.data);
-            
-            if (artigosResponse.data && artigosResponse.data.data && Array.isArray(artigosResponse.data.data)) {
-              artigosData = artigosResponse.data.data;
-              console.log('✅ Artigos encontrados:', artigosData.length);
-              artigosEncontrados = true;
-              break;
-            } else if (artigosResponse.data && Array.isArray(artigosResponse.data)) {
-              artigosData = artigosResponse.data;
-              console.log('✅ Artigos encontrados (array direto):', artigosData.length);
-              artigosEncontrados = true;
-              break;
-            }
-          } catch (error) {
-            console.log('❌ Erro na URL:', url, error.response?.status);
-            continue;
-          }
+        try {
+          const artigosResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?category_id=${categoriaId}`);
+          setArtigos(artigosResponse.data.data || []);
+        } catch {
+          const artigosResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/category/${categoriaId}`);
+          setArtigos(artigosResponse.data.data || []);
         }
-        
-        if (!artigosEncontrados) {
-          try {
-            console.log('🔄 Buscando todos os artigos e filtrando localmente...');
-            const todosArtigosUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/articles`;
-            const todosArtigosResponse = await axios.get(todosArtigosUrl);
-            
-            const todosArtigos = todosArtigosResponse.data.data || todosArtigosResponse.data || [];
-            artigosData = todosArtigos.filter(artigo => 
-              String(artigo.category_id) === String(categoriaId) || 
-              String(artigo.categoria_id) === String(categoriaId) ||
-              String(artigo.categoryId) === String(categoriaId)
-            );
-            console.log('✅ Artigos filtrados localmente:', artigosData.length);
-          } catch (error) {
-            console.error('❌ Erro ao buscar todos os artigos:', error);
-            artigosData = [];
-          }
-        }
-        
-        if (artigosData.length > 0) {
-          const artigosFiltrados = artigosData.filter(artigo => 
-            String(artigo.category_id) === String(categoriaId) || 
-            String(artigo.categoria_id) === String(categoriaId) ||
-            String(artigo.categoryId) === String(categoriaId)
-          );
-          
-          if (artigosFiltrados.length > 0) {
-            console.log('🔍 Aplicando filtro adicional:', artigosFiltrados.length, 'artigos');
-            artigosData = artigosFiltrados;
-          }
-        }
-        
-        console.log('📊 Artigos finais para a categoria', categoriaId, ':', artigosData);
-        setArtigos(artigosData);
-
-        toast.success("📖 Categoria e artigos carregados com sucesso!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          style: {
-            backgroundColor: "#10b981",
-            color: "white",
-          },
-        });
 
       } catch (err) {
-        setError(err.response?.data?.message || 'Erro ao carregar categoria');
-        
-        toast.error("❌ Erro ao carregar categoria e artigos!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-          style: {
-            backgroundColor: "#ef4444",
-            color: "white",
-          },
-        });
+        console.error('❌ Erro:', err);
+        setError('Erro ao carregar dados');
       } finally {
         setLoading(false);
       }
@@ -203,31 +114,12 @@ export default function CategoriaDetalhes() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
       <Header />
+      <Banner 
+        titulo={categoria ? `📚 ${categoria.titulo || categoria.title || categoria.name}` : "📚 Categoria"}
+        subtitulo={categoria ? (categoria.descricao || categoria.description || "Explore os artigos desta categoria") : "Carregando categoria..."}
+        imagem="/images/banner.png"
+      />
       <main className="flex-grow">
-        <section className="relative bg-gradient-to-r from-blue-600 via-teal-600 to-green-600 py-16 overflow-hidden">
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              {categoria && (
-                <>
-                  <div className="flex justify-center mb-6">
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
-                      alt={categoria.name || categoria.titulo || categoria.title}
-                      className="w-24 h-24 object-cover rounded-2xl shadow-2xl border-4 border-white bg-white"
-                    />
-                  </div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-                    {categoria.titulo || categoria.title || categoria.name}
-                  </h1>
-                  <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed drop-shadow-md">
-                    {categoria.descricao || categoria.description}
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
-        </section>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex gap-4">

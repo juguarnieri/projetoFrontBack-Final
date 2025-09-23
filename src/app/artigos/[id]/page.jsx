@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Banner from "../../components/Banner";
 import ScrollToTop from "../../components/ScrollToTop";
 
 export default function ArtigoDetalhes() {
@@ -166,6 +167,11 @@ export default function ArtigoDetalhes() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
       <Header />
+      <Banner 
+        titulo="📖 Artigo Completo"
+        subtitulo="Leia nosso conteúdo detalhado sobre cuidados com pets"
+        imagem="/images/banner.png"
+      />
       <main className="flex-grow">
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

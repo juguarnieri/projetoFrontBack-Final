@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Banner from "../components/Banner";
 import ScrollToTop from "../components/ScrollToTop";
 import QuizIntro from "../components/QuizIntro";
 import QuizQuestion from "../components/QuizQuestion";

@@ -95,7 +95,7 @@ export default function Listagem() {
   }, []);
 
   const handleDetalhes = (categoria) => {
-    router.push(`/categorias/${categoria.id}`);
+    router.push(`/listagem/${categoria.id}`);
     
     toast.info(`🔍 Carregando categoria: ${categoria.titulo}`, {
       position: "top-right",
@@ -139,31 +139,11 @@ export default function Listagem() {
       <Header />
       <main className="flex-grow">
 
-        <section className="relative bg-gradient-to-r from-blue-600 via-teal-600 to-green-600 py-20 overflow-hidden">
-
-          <div className="absolute inset-0 opacity-30">
-            <img 
-              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Festilo-de-vida%2Fpets%2Fdachshund-saiba-tudo-sobre-a-raca-do-cachorro-salsicha-1.3241969&psig=AOvVaw3bifv3JsDwOmrfEMZ5SWuY&ust=1758120329613000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjXl_HC3Y8DFQAAAAAdAAAAABAE" 
-              alt="Banner DogCare" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-          
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-              📚 Categorias de Cuidados
-            </h1>
-            <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed drop-shadow-md">
-              Explore nosso conteúdo organizado por categorias e encontre exatamente o que precisa para cuidar do seu cão
-            </p>
-            <div className="mt-8">
-            </div>
-          </div>
-        </section>
+        <Banner 
+          titulo="📚 Categorias de Cuidados"
+          subtitulo="Explore nosso conteúdo organizado por categorias e encontre exatamente o que precisa para cuidar do seu cão"
+          imagem="/images/banner1.png"
+        />
         
         <div className="text-center mt-12 mb-8">
           <p className="text-teal-700 text-lg font-medium max-w-3xl mx-auto">

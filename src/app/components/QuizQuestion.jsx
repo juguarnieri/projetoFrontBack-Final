@@ -34,23 +34,19 @@ export default function QuizQuestion({
   return (
     <div className="bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl quiz-card relative z-10">
 
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-6 relative overflow-hidden animate-gradient">
+      <div className="bg-gradient-to-r from-green-500 via-orange-500 to-yellow-500 p-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-10"></div>
         <div className="relative z-10">
           <div className="flex justify-between items-center mb-4">
-            <span className="text-white font-semibold text-lg animate-float">
-              ⭐ Pergunta {questionNumber} de {totalQuestions}
+            <span className="text-white font-semibold text-lg flex items-center">
+              <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-sm">
+                🐾
+              </span>
+              🐕 Pergunta {questionNumber} de {totalQuestions} 🦴
             </span>
-            <div className="flex items-center text-white">
-              <div className="relative">
-                <div className={`text-3xl mr-2 ${timeLeft <= 10 ? 'animate-bounce' : 'animate-float'}`}>⏰</div>
-                <div className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center ${
-                  timeLeft <= 10 ? 'bg-red-500 animate-pulse' : 'bg-blue-500'
-                }`}>
-                  <span className="text-xs font-bold text-white">{timeLeft}</span>
-                </div>
-              </div>
-              <span className={`text-2xl font-bold ml-2 ${timeLeft <= 10 ? 'text-red-300 animate-pulse' : 'text-white'}`}>
+            <div className="flex items-center text-white bg-white/20 rounded-full px-4 py-2">
+              <div className={`w-3 h-3 rounded-full mr-2 ${timeLeft <= 10 ? 'bg-red-400 animate-pulse' : 'bg-green-400'}`}></div>
+              <span className={`text-lg font-bold ${timeLeft <= 10 ? 'text-red-200 animate-pulse' : 'text-white'}`}>
                 {timeLeft}s
               </span>
             </div>
@@ -58,7 +54,7 @@ export default function QuizQuestion({
           
           <div className="w-full bg-white bg-opacity-30 rounded-full h-3 mb-2">
             <div 
-              className="progress-bar h-3 rounded-full transition-all duration-500 shadow-lg"
+              className="bg-white rounded-full h-3 transition-all duration-500 shadow-lg"
               style={{ width: `${progressPercentage}%` }}
             ></div>
           </div>
@@ -75,14 +71,18 @@ export default function QuizQuestion({
       </div>
 
       <div className="p-8 md:p-12">
-        <div className="text-center mb-8">
-          <div className="text-6xl mb-4 animate-bounce">🤔</div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 leading-relaxed typing-effect">
-            {question.question}
-          </h2>
+        <div className="text-center mb-10">
+          <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <span className="text-white text-2xl font-bold">🐕</span>
+          </div>
+          <div className="bg-gradient-to-r from-green-50 to-orange-50 rounded-3xl p-8 border border-green-200 shadow-md">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-800 leading-relaxed text-center">
+              {question.question}
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+        <div className="space-y-4">
           {shuffledOptions.map((option, index) => {
             const isSelected = selectedAnswer === index;
             const isCorrect = index === question.correct;
@@ -94,52 +94,52 @@ export default function QuizQuestion({
                 key={`${question.id}-${index}`}
                 onClick={() => !showFeedback && onAnswer(index)}
                 disabled={showFeedback}
-                className={`group relative quiz-option p-6 rounded-2xl text-left font-medium transition-all duration-300 transform hover:scale-105 ${
+                className={`w-full group relative p-6 rounded-2xl text-left font-medium transition-all duration-300 transform hover:scale-105 ${
                   showFeedback
                     ? shouldHighlight
-                      ? 'option-correct text-white shadow-lg animate-glow'
+                      ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg'
                       : isWrong
-                      ? 'option-incorrect text-white shadow-lg'
-                      : 'bg-gray-200 text-gray-500'
+                      ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-500 border border-gray-200'
                     : isSelected
-                    ? 'option-selected text-white shadow-lg animate-glow'
-                    : 'bg-gradient-to-r from-gray-100 to-gray-200 hover:from-blue-100 hover:to-purple-100 text-gray-700 hover:text-blue-700'
+                    ? 'bg-gradient-to-r from-green-500 to-orange-500 text-white shadow-lg'
+                    : 'bg-white border-2 border-gray-200 hover:border-green-300 text-gray-700 hover:bg-green-50'
                 } shadow-md hover:shadow-xl`}
               >
                 <div className="flex items-center">
-                  <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold mr-4 ${
+                  <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-lg font-bold mr-6 flex-shrink-0 ${
                     showFeedback && shouldHighlight
-                      ? 'bg-green-600 text-white'
+                      ? 'bg-green-100 text-green-600'
                       : showFeedback && isWrong
-                      ? 'bg-red-600 text-white'
+                      ? 'bg-red-100 text-red-600'
                       : isSelected
-                      ? 'bg-white text-blue-600'
-                      : 'bg-blue-500 text-white group-hover:bg-purple-500'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-green-100 text-green-600 group-hover:bg-green-200'
                   }`}>
                     {String.fromCharCode(65 + index)}
                   </span>
-                  <span className="flex-1 text-justify">{option}</span>
+                  <span className="flex-1 text-lg leading-relaxed pr-4">{option}</span>
                   
                   {showFeedback && (
-                    <span className="text-2xl ml-2">
+                    <span className="text-3xl ml-4 flex-shrink-0">
                       {shouldHighlight ? '✅' : isWrong ? '❌' : ''}
                     </span>
                   )}
                 </div>
-
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-300 transform -skew-x-12"></div>
               </button>
             );
           })}
         </div>
 
         {showFeedback && question.explanation && (
-          <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-l-4 border-blue-500 transform transition-all duration-500 hover:scale-102">
+          <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-orange-50 rounded-2xl border border-green-200 transform transition-all duration-500">
             <div className="flex items-start">
-              <div className="text-3xl mr-4">💡</div>
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <span className="text-white text-xl">💡</span>
+              </div>
               <div>
-                <h3 className="font-bold text-blue-800 mb-2 text-lg">Explicação:</h3>
-                <p className="text-blue-700 leading-relaxed">
+                <h3 className="font-bold text-green-800 mb-2 text-lg">Explicação:</h3>
+                <p className="text-green-700 leading-relaxed text-lg">
                   {question.explanation}
                 </p>
               </div>

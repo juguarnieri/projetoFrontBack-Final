@@ -19,22 +19,22 @@ export default function SobreMim() {
 
   const projetos = [
     {
-      nome: "DogCare Platform",
-      descricao: "Plataforma completa para cuidados caninos com sistema de categorias e artigos",
-      link: "https://github.com/juguarnieri/dogcare-platform",
+      nome: "Portal Inglês",
+      descricao: "O objetivo principal é auxíliar jovens estudantes que estão em época de vestibular e precisam de um reforço.",
+      link: "https://github.com/juguarnieri/site-ingles.git",
+      status: "Concluído"
+    },
+    {
+      nome: "Crime Whispers",
+      descricao: "Crime Whispers é uma plataforma web e móvel, desenvolvida para conectar pessoas interessadas em notícias e casos reais ao redor do mundo.",
+      link: "https://github.com/juguarnieri/projetoMobile-final.git",
+      status: "Concluído"
+    },
+    {
+      nome: "Babi's Store",
+      descricao: "Babi's Store - Loja virtual desenvolvida com React & Next.js consumindo Fake Store API",
+      link: "https://projeto-final-front-alpha.vercel.app/",
       status: "Em desenvolvimento"
-    },
-    {
-      nome: "E-commerce Pet Shop",
-      descricao: "Loja virtual especializada em produtos para pets",
-      link: "https://github.com/juguarnieri/petshop-ecommerce",
-      status: "Concluído"
-    },
-    {
-      nome: "Veterinary Management System",
-      descricao: "Sistema de gestão para clínicas veterinárias",
-      link: "https://github.com/juguarnieri/vet-management",
-      status: "Concluído"
     }
   ];
 
@@ -42,8 +42,8 @@ export default function SobreMim() {
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
       <Header />
       <main className="flex-grow">
-        <section className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+        <section className="relative bg-gradient-to-r from-blue-600 via-teal-600 to-green-600 py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
@@ -56,7 +56,6 @@ export default function SobreMim() {
                       alt="Júlia Guarnieri" 
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        // Fallback caso a imagem não exista
                         e.target.style.display = 'none';
                         e.target.nextElementSibling.style.display = 'flex';
                       }}
@@ -72,7 +71,7 @@ export default function SobreMim() {
                 Júlia Andrade Guarnieri
               </h1>
               <p className="text-xl md:text-2xl text-white max-w-4xl mx-auto leading-relaxed drop-shadow-md mb-8">
-                Desenvolvedora Full Stack apaixonada por criar experiências digitais incríveis e ajudar pets e seus tutores
+                Desenvolvedora Full Stack apaixonada por criar experiências digitais incríveis e ajudar pets e seus tutores!
               </p>
             </div>
           </div>
@@ -123,7 +122,7 @@ export default function SobreMim() {
                         principalmente, por nossos amigos de quatro patas! 🐕
                       </p>
                       <p>
-                        Minha jornada na programação começou há alguns anos, quando descobri que podia usar 
+                        Minha jornada na programação começou ano passado, quando descobri que podia usar 
                         código para resolver problemas reais e fazer a diferença na vida das pessoas.
                       </p>
                       <p>
@@ -152,8 +151,6 @@ export default function SobreMim() {
                 </div>
               </div>
             )}
-
-            {/* Habilidades */}
             {activeTab === "habilidades" && (
               <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 transform transition-all duration-500 animate-fade-in">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
@@ -161,7 +158,7 @@ export default function SobreMim() {
                 </h2>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                  {["React", "Next.js", "JavaScript", "TypeScript", "Node.js", "TailwindCSS", "MongoDB", "PostgreSQL", "Git", , "HTML", "CSS", "React Native"].map((tech) => (
+                  {["React", "Next.js", "JavaScript", "Node.js", "TailwindCSS", "MongoDB", "PostgreSQL", "Git", "HTML", "CSS", "React Native"].map((tech) => (
                     <span key={tech} className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300">
                       {tech}
                     </span>
@@ -170,7 +167,6 @@ export default function SobreMim() {
               </div>
             )}
 
-            {/* Projetos */}
             {activeTab === "projetos" && (
               <div className="space-y-8 transform transition-all duration-500 animate-fade-in">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
@@ -216,8 +212,8 @@ export default function SobreMim() {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
                   Vamos Conversar!
                 </h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  <div>
+                <div className="flex justify-center">
+                  <div className="max-w-2xl w-full">
                     <div className="space-y-6">
                       <div className="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl hover:shadow-lg transition-shadow">
                         <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-4">
@@ -225,7 +221,9 @@ export default function SobreMim() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-800">Email</p>
-                          <p className="text-gray-600">julia.guarnieri@exemplo.com</p>
+                          <a href="mailto:juliaguarnieri04@gmail.com" className="text-blue-600 hover:text-blue-800 hover:underline">
+                            juliaguarnieri04@gmail.com
+                          </a>
                         </div>
                       </div>
                       
@@ -235,7 +233,9 @@ export default function SobreMim() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-800">LinkedIn</p>
-                          <p className="text-gray-600">linkedin.com/in/julia-guarnieri</p>
+                          <a href="https://linkedin.com/in/julia-guarnieri" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-800 hover:underline">
+                            linkedin.com/in/julia-guarnieri
+                          </a>
                         </div>
                       </div>
                       
@@ -245,24 +245,11 @@ export default function SobreMim() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-800">GitHub</p>
-                          <p className="text-gray-600">github.com/juguarnieri</p>
+                          <a href="https://github.com/juguarnieri" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-800 hover:underline">
+                            github.com/juguarnieri
+                          </a>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className="bg-gradient-to-br from-teal-100 to-cyan-100 rounded-3xl p-8">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                        Interessado em colaborar?
-                      </h3>
-                      <p className="text-gray-600 mb-6 leading-relaxed">
-                        Estou sempre aberta a novos projetos, especialmente aqueles que 
-                        envolvem tecnologia para o bem-estar animal!
-                      </p>
-                      <button className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold hover:from-teal-600 hover:to-cyan-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        Entre em Contato
-                      </button>
                     </div>
                   </div>
                 </div>

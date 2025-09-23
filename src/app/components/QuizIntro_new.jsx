@@ -1,0 +1,1 @@
+﻿export default function QuizIntro({ onStart, questionsCount }) { return null; }
