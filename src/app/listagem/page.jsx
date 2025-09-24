@@ -23,29 +23,20 @@ export default function Listagem() {
       try {
         setLoading(true);
         const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/categories`;
-        console.log('🔗 Fazendo requisição para:', apiUrl);
-        console.log('🌍 NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
         
         const response = await axios.get(apiUrl);
-        console.log('✅ Resposta do backend:', response.data);
-        console.log('✅ Tipo da resposta:', typeof response.data);
-        console.log('✅ É array?:', Array.isArray(response.data));
         
-        // Verificar se response.data é um array, se não, tentar acessar uma propriedade que contenha o array
         let categoriasData = response.data;
         if (!Array.isArray(response.data)) {
-          // Se a resposta não é um array, pode estar em response.data.categories ou response.data.data
           if (response.data.categories && Array.isArray(response.data.categories)) {
             categoriasData = response.data.categories;
           } else if (response.data.data && Array.isArray(response.data.data)) {
             categoriasData = response.data.data;
           } else {
-            console.error('❌ Resposta do backend não é um array:', response.data);
             categoriasData = [];
           }
         }
         
-        console.log('✅ Categorias processadas:', categoriasData);
         setCategorias(categoriasData);
         
         toast.success("📚 Categorias carregadas com sucesso!", {
@@ -65,11 +56,6 @@ export default function Listagem() {
           },
         });
       } catch (err) {
-        console.error('❌ Erro ao buscar categorias:', err);
-        console.error('❌ Status:', err.response?.status);
-        console.error('❌ Dados:', err.response?.data);
-        console.error('❌ URL tentada:', `${process.env.NEXT_PUBLIC_API_URL}/categories`);
-        
         toast.error("❌ Erro ao carregar categorias do backend!", {
           position: "top-right",
           autoClose: 3000,
@@ -121,12 +107,12 @@ export default function Listagem() {
 
   if (loading) {
     return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+      <div className="flex flex-col min-h-screen bg-white">
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-teal-600 mx-auto"></div>
-            <p className="mt-4 text-xl text-teal-600">Carregando categorias...</p>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
+            <p className="mt-4 text-xl text-orange-600">Carregando categorias...</p>
           </div>
         </div>
         <Footer />
@@ -135,18 +121,18 @@ export default function Listagem() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
       <main className="flex-grow">
 
         <Banner 
           titulo="📚 Categorias de Cuidados"
           subtitulo="Explore nosso conteúdo organizado por categorias e encontre exatamente o que precisa para cuidar do seu cão"
-          imagem="/images/banner1.png"
+          imagem="/images/banner2.png"
         />
         
         <div className="text-center mt-12 mb-8">
-          <p className="text-teal-700 text-lg font-medium max-w-3xl mx-auto">
+          <p className="text-gray-700 text-lg font-medium max-w-3xl mx-auto">
             Bem-vindo às nossas categorias! Aqui você encontra dicas especializadas e artigos práticos para cuidar melhor do seu melhor amigo.
           </p>
         </div>

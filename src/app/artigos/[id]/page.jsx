@@ -101,7 +101,7 @@ export default function ArtigoDetalhes() {
 
   if (loading) {
     return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+      <div className="flex flex-col min-h-screen bg-white">
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
@@ -116,7 +116,7 @@ export default function ArtigoDetalhes() {
 
   if (error) {
     return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+      <div className="flex flex-col min-h-screen bg-white">
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
@@ -145,7 +145,7 @@ export default function ArtigoDetalhes() {
 
   if (!artigo) {
     return (
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+      <div className="flex flex-col min-h-screen bg-white">
         <Header />
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
@@ -165,32 +165,32 @@ export default function ArtigoDetalhes() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-teal-100 to-cyan-200">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
       <Banner 
         titulo="📖 Artigo Completo"
         subtitulo="Leia nosso conteúdo detalhado sobre cuidados com pets"
-        imagem="/images/banner.png"
+        imagem="/images/image.png"
       />
       <main className="flex-grow">
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap justify-center">
             <button
               onClick={handleVoltarParaHome}
-              className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center gap-2"
+              className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
             >
               🏠 Home
             </button>
             <button
               onClick={handleVoltarParaListagem}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
             >
               📚 Todas as Categorias
             </button>
             <button
               onClick={handleVoltarParaCategoria}
-              className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors flex items-center gap-2"
+              className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
             >
               ← Voltar para Categoria
             </button>
@@ -204,20 +204,24 @@ export default function ArtigoDetalhes() {
               {artigo.titulo || artigo.title || 'Título do Artigo'}
             </h1>
             
-            <div className="flex items-center justify-center gap-6 text-gray-600 mb-8">
-              <span className="text-sm">
-                📅 {artigo.created_at ? new Date(artigo.created_at).toLocaleDateString('pt-BR', {
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric'
-                }) : 'Data não disponível'}
-              </span>
-              {artigo.autor && (
-                <span className="text-sm">
-                  ✍️ {artigo.autor}
-                </span>
-              )}
-            </div>
+            {(artigo.created_at || artigo.autor) && (
+              <div className="flex items-center justify-center gap-6 text-gray-600 mb-8">
+                {artigo.created_at && (
+                  <span className="text-sm">
+                    📅 {new Date(artigo.created_at).toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: 'long',
+                      year: 'numeric'
+                    })}
+                  </span>
+                )}
+                {artigo.autor && (
+                  <span className="text-sm">
+                    ✍️ {artigo.autor}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           {artigo.image_url && (
@@ -248,9 +252,11 @@ export default function ArtigoDetalhes() {
                 />
               ) : (
                 <div className="text-gray-800 leading-relaxed">
-                  <p className="mb-6">
-                    {artigo.descricao || artigo.description || 'Conteúdo do artigo não disponível.'}
-                  </p>
+                  {(artigo.descricao || artigo.description) && (
+                    <p className="mb-6">
+                      {artigo.descricao || artigo.description}
+                    </p>
+                  )}
                   
                   <div className="space-y-6">
                     <h3 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -271,24 +277,6 @@ export default function ArtigoDetalhes() {
                   </div>
                 </div>
               )}
-            </div>
-          </div>
-
-          {/* Navegação no final */}
-          <div className="text-center">
-            <div className="flex gap-4 justify-center flex-wrap">
-              <button
-                onClick={handleVoltarParaCategoria}
-                className="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors flex items-center gap-2"
-              >
-                ← Voltar para Categoria
-              </button>
-              <button
-                onClick={handleVoltarParaListagem}
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-              >
-                📚 Ver Todas as Categorias
-              </button>
             </div>
           </div>
         </article>

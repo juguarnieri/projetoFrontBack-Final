@@ -11,8 +11,6 @@ import QuizIntro from "../components/QuizIntro";
 import QuizQuestion from "../components/QuizQuestion";
 import QuizResults from "../components/QuizResults";
 import QuizLoader from "../components/QuizLoader";
-import ParticleEffect from "../components/ParticleEffect";
-import './quiz-animations.css';
 
 export default function Quiz() {
   const router = useRouter();
@@ -27,11 +25,8 @@ export default function Quiz() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [showParticles, setShowParticles] = useState(false);
-  const [particleType, setParticleType] = useState('success');
 
 
-  // Timer effect
   useEffect(() => {
     let interval = null;
     if (isTimerActive && timeLeft > 0 && gameState === 'playing') {
@@ -42,13 +37,11 @@ export default function Quiz() {
     return () => clearInterval(interval);
   }, [isTimerActive, timeLeft, gameState]);
 
-  // Carrega perguntas da API
   const loadQuestions = async () => {
     setGameState('loading');
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/questions`);
       if (response.data?.data && response.data.data.length > 0) {
-        // Transforma dados da API para o formato esperado
         const apiQuestions = response.data.data.map(q => ({
           id: q.id,
           question: q.question_text,
@@ -58,13 +51,11 @@ export default function Quiz() {
         }));
         setQuestions(apiQuestions);
         
-        // Simula carregamento por 2 segundos para melhor UX
         setTimeout(() => {
           setGameState('playing');
           setIsTimerActive(true);
         }, 2000);
       } else {
-        // Se não há perguntas na API, mostra erro
         setGameState('error');
       }
     } catch (error) {
@@ -84,13 +75,7 @@ export default function Quiz() {
     setShowFeedback(true);
     setIsTimerActive(false);
     
-    // Registra a resposta
     const isCorrect = answerIndex === questions[currentQuestion].correct;
-    
-    // Ativa efeito de partículas
-    setParticleType(isCorrect ? 'success' : 'error');
-    setShowParticles(true);
-    setTimeout(() => setShowParticles(false), 3000);
     
     if (isCorrect) {
       setScore(prev => prev + 1);
@@ -103,7 +88,6 @@ export default function Quiz() {
     };
     setAnswers(prev => [...prev, newAnswer]);
     
-    // Avança para próxima pergunta após 3 segundos
     setTimeout(() => {
       if (currentQuestion + 1 < questions.length) {
         setCurrentQuestion(prev => prev + 1);
@@ -114,10 +98,6 @@ export default function Quiz() {
       } else {
         setGameState('results');
         setIsTimerActive(false);
-        // Efeito especial para finalização
-        setParticleType('success');
-        setShowParticles(true);
-        setTimeout(() => setShowParticles(false), 5000);
       }
     }, 3000);
   }, [selectedAnswer, showFeedback, questions, currentQuestion]);
@@ -127,7 +107,6 @@ export default function Quiz() {
     
     setIsTimerActive(false);
     
-    // Registra resposta como não respondida
     const newAnswer = {
       question: currentQuestion,
       selected: null,
@@ -135,7 +114,6 @@ export default function Quiz() {
     };
     setAnswers(prev => [...prev, newAnswer]);
     
-    // Mostra feedback por 2 segundos
     setShowFeedback(true);
     setTimeout(() => {
       if (currentQuestion + 1 < questions.length) {
@@ -161,7 +139,6 @@ export default function Quiz() {
     setTimeLeft(30);
     setIsTimerActive(false);
     setQuestions([]);
-    setShowParticles(false);
   };
 
   const goToArticles = () => {
@@ -169,23 +146,10 @@ export default function Quiz() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 relative overflow-hidden">
-      {/* Efeito de partículas */}
-      <ParticleEffect isActive={showParticles} type={particleType} />
-      
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5 z-0">
-        <div className="absolute top-20 left-10 text-6xl animate-float">🐕</div>
-        <div className="absolute top-40 right-20 text-4xl animate-float" style={{animationDelay: '1s'}}>🦴</div>
-        <div className="absolute bottom-40 left-20 text-5xl animate-float" style={{animationDelay: '2s'}}>🎾</div>
-        <div className="absolute bottom-20 right-10 text-3xl animate-float" style={{animationDelay: '3s'}}>🐾</div>
-        <div className="absolute top-1/2 left-1/4 text-4xl animate-float" style={{animationDelay: '0.5s'}}>❤️</div>
-        <div className="absolute top-1/3 right-1/3 text-3xl animate-float" style={{animationDelay: '1.5s'}}>🏠</div>
-      </div>
-      
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
-      <main className="flex-grow relative z-10">
-        <section className="py-20">
+      <main className="flex-grow">
+        <section className="py-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {gameState === 'intro' && (
@@ -201,19 +165,18 @@ export default function Quiz() {
 
             {gameState === 'error' && (
               <div className="text-center">
-                <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-all duration-500 relative overflow-hidden z-10">
-                  <div className="text-8xl mb-6">❌</div>
-                  <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-6">
-                    Ops! Algo deu errado
+                <div className="bg-gray-50 rounded-lg p-8">
+                  <h1 className="text-2xl font-bold text-red-600 mb-4">
+                    Erro ao carregar quiz
                   </h1>
-                  <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-                    Não foi possível carregar as perguntas do quiz. Verifique sua conexão e tente novamente.
+                  <p className="text-gray-600 mb-6">
+                    Não foi possível carregar as perguntas. Tente novamente.
                   </p>
                   <button
                     onClick={handleStartQuiz}
-                    className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white px-12 py-4 rounded-full text-xl font-bold hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-2xl"
+                    className="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600"
                   >
-                    Tentar Novamente 🔄
+                    Tentar Novamente
                   </button>
                 </div>
               </div>
@@ -246,6 +209,80 @@ export default function Quiz() {
         </section>
         <ScrollToTop />
       </main>
+
+      <section className="bg-gradient-to-br from-orange-50 via-white to-teal-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block p-3 bg-orange-100 rounded-full mb-4">
+              <span className="text-4xl">🐕</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+              Curiosidades Caninas
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-teal-500 mx-auto mb-6"></div>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Descubra fatos fascinantes sobre nossos companheiros de quatro patas
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-3xl transform rotate-1 transition-transform group-hover:rotate-2"></div>
+              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+                <div className="text-center">
+                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-6">
+                    <span className="text-4xl">👃</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-orange-600 mb-4">Super Olfato</h3>
+                  <div className="w-16 h-0.5 bg-orange-500 mx-auto mb-4"></div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Os cães têm entre <span className="font-semibold text-orange-600">220 a 300 milhões</span> de receptores olfativos, 
+                    enquanto humanos têm apenas 6 milhões! Isso significa que podem detectar odores 
+                    até 100.000 vezes melhor que nós.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-teal-600 rounded-3xl transform -rotate-1 transition-transform group-hover:-rotate-2"></div>
+              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+                <div className="text-center">
+                  <div className="inline-block p-4 bg-teal-100 rounded-full mb-6">
+                    <span className="text-4xl">💤</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-teal-600 mb-4">Sonhos Caninos</h3>
+                  <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Assim como os humanos, os cães <span className="font-semibold text-teal-600">sonham</span>! 
+                    Durante o sono REM, eles podem mover as patas e fazer ruídos, 
+                    provavelmente revivendo suas aventuras do dia.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-pink-500 rounded-3xl transform rotate-1 transition-transform group-hover:rotate-2"></div>
+              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+                <div className="text-center">
+                  <div className="inline-block p-4 bg-red-100 rounded-full mb-6">
+                    <span className="text-4xl">❤️</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-red-600 mb-4">Batimento Cardíaco</h3>
+                  <div className="w-16 h-0.5 bg-red-500 mx-auto mb-4"></div>
+                  <p className="text-gray-700 leading-relaxed">
+                    O coração de um cão bate entre <span className="font-semibold text-red-600">70-120 batimentos</span> 
+                    por minuto, mais rápido que o humano. Cães menores tendem a ter 
+                    batimentos mais acelerados que os maiores.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

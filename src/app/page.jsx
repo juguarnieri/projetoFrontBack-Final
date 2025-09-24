@@ -44,7 +44,7 @@ export default function Home() {
       <Banner 
         titulo="Bem-vindo ao DogCare! 🦴"
         subtitulo="Seu guia completo de cuidados caninos! Aqui você encontra informações essenciais para garantir o bem-estar do seu melhor amigo de quatro patas."
-        imagem="https://cdn.jornaldaparaiba.com.br/wp-content/uploads/2024/01/900x0/racas-de-cachorro-7.webp?fallback=https%3A%2F%2Fcdn.jornaldaparaiba.com.br%2Fwp-content%2Fuploads%2F2024%2F01%2Fracas-de-cachorro.jpg%3Fxid%3D650492&xid=650492"
+        imagem="/images/banner1.png"
       />
 
       <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -64,24 +64,24 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="bg-orange-500 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             📚 Explore Nossas Dicas Completas
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-90 max-w-3xl mx-auto">
             Descubra mais dicas detalhadas, conselhos práticos e muito mais para cuidar melhor do seu pet
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg mx-auto">
             <button 
               onClick={() => router.push('/listagem')}
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white text-orange-600 px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg text-sm sm:text-base"
             >
               Ver Todas as Dicas
             </button>
             <button 
               onClick={() => router.push('/quiz')}
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-500 transition-colors"
+              className="border-2 border-white text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors text-sm sm:text-base"
             >
               Fazer Quiz Interativo
             </button>
@@ -89,25 +89,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-12 md:py-16">
+      <section className="bg-white py-8 sm:py-12 md:py-16">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 items-center">
+            <div className="text-center lg:text-left order-2 lg:order-1 lg:col-span-2">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">
                 Veja a Idade do Seu Cachorro
               </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Descubra como calcular a idade do seu cão em anos humanos e entenda melhor as necessidades específicas de cada fase da vida do seu pet.
               </p>
             </div>
-            <div className="flex justify-center">
-              <div className="relative w-full h-80 md:h-96 lg:h-[500px] rounded-xl overflow-hidden shadow-lg">
+            <div className="flex justify-center order-1 lg:order-2 lg:col-span-3">
+              <div className="relative w-full max-w-2xl lg:max-w-4xl xl:max-w-5xl h-80 sm:h-96 md:h-[450px] lg:h-[550px] xl:h-[650px] rounded-xl overflow-hidden shadow-xl border border-gray-200">
                 <Image 
                   src="/images/cachorro-idade.png"
                   alt="Cachorro de diferentes idades"
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 80vw"
                 />
               </div>
             </div>

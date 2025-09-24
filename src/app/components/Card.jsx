@@ -4,20 +4,25 @@ import Image from "next/image";
 
 export default function Card({ titulo, descricao, imagem }) {
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100 w-full max-w-xs mx-auto">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100 w-full max-w-xs mx-auto min-h-[420px] sm:min-h-[460px]">
       {imagem && (
-        <div className="relative h-40 sm:h-48 w-full">
+        <div className="relative h-32 xs:h-36 sm:h-40 md:h-44 lg:h-48 w-full overflow-hidden">
           <Image 
             src={imagem} 
-            alt={titulo} 
+            alt={titulo || "Imagem do card"} 
             fill
-            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-center hover:scale-105 transition-transform duration-300"
           />
         </div>
       )}
-      <div className="p-4 sm:p-6">
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-orange-500 mb-2 sm:mb-3">{titulo}</h3>
-        <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">{descricao}</p>
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 flex flex-col h-full">
+        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-orange-600 mb-2 sm:mb-3 leading-tight">
+          {titulo}
+        </h3>
+        <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed flex-1">
+          {descricao}
+        </p>
       </div>
     </div>
   );

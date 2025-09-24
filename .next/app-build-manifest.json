@@ -6,16 +6,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/quiz/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/quiz/page.css",
-      "static/chunks/app/quiz/page.js"
-    ],
-    "/sobre-mim/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sobre-mim/page.js"
+      "static/chunks/app/page.js"
     ],
     "/listagem/page": [
       "static/chunks/webpack.js",
@@ -23,16 +17,27 @@
       "static/css/app/listagem/page.css",
       "static/chunks/app/listagem/page.js"
     ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/listagem/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/listagem/[id]/page.css",
       "static/chunks/app/listagem/[id]/page.js"
+    ],
+    "/artigos/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/artigos/[id]/page.css",
+      "static/chunks/app/artigos/[id]/page.js"
+    ],
+    "/quiz/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/quiz/page.js"
+    ],
+    "/sobre-mim/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sobre-mim/page.js"
     ]
   }
 }

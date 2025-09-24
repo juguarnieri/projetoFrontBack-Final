@@ -1,22 +1,13 @@
 ﻿export default function QuizIntro({ onStart, questionsCount }) {
   return (
     <div className="text-center mb-16">
-      <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-all duration-500 hover:scale-105 relative overflow-hidden z-10">
-
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 text-6xl animate-bounce">🐕</div>
-          <div className="absolute top-20 right-20 text-4xl animate-pulse">🦴</div>
-          <div className="absolute bottom-10 left-20 text-5xl animate-bounce" style={{animationDelay: '1s'}}>🎾</div>
-          <div className="absolute bottom-20 right-10 text-3xl animate-pulse" style={{animationDelay: '2s'}}>🐾</div>
-        </div>
-        
-        <div className="relative z-10">
-          <div className="text-8xl mb-6 animate-bounce">🐕</div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent mb-6">
-            🐾 Quiz DogCare Interativo 🐾
+      <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+        <div className="relative">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+            Quiz DogCare Interativo
           </h1>
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-            🎯 Teste seus conhecimentos sobre cuidados caninos e descubra o quanto você sabe sobre nossos amigos de quatro patas! 🐶
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
+            Teste seus conhecimentos sobre cuidados caninos e descubra o quanto você sabe sobre nossos amigos de quatro patas!
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

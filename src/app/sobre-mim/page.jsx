@@ -47,7 +47,6 @@ export default function SobreMim() {
           
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              {/* Avatar */}
               <div className="flex justify-center mb-8">
                 <div className="relative">
                   <div className="w-32 h-32 rounded-full overflow-hidden shadow-2xl border-4 border-white">
@@ -77,7 +76,6 @@ export default function SobreMim() {
           </div>
         </section>
 
-        {/* Tabs Navigation */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex justify-center mb-12">
             <div className="bg-white rounded-2xl p-2 shadow-lg">
@@ -105,15 +103,12 @@ export default function SobreMim() {
             </div>
           </div>
 
-          {/* Tab Content */}
           <div className="min-h-96">
-            {/* História */}
             {activeTab === "historia" && (
               <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 transform transition-all duration-500 animate-fade-in">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex items-center">
-                      <span className="text-4xl mr-4">🌟</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
                       Minha Jornada
                     </h2>
                     <div className="space-y-6 text-gray-700 leading-relaxed">
@@ -138,13 +133,24 @@ export default function SobreMim() {
                       </div>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="relative inline-block">
-                      <div className="w-80 h-80 bg-gradient-to-br from-purple-200 to-pink-200 rounded-3xl flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                        <span className="text-9xl">👩‍💻</span>
-                      </div>
-                      <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center shadow-lg">
-                        <span className="text-3xl">🚀</span>
+                  
+                  <div className="flex justify-center">
+                    <div className="relative">
+                      <div className="w-80 h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-gradient-to-br from-teal-100 to-cyan-100">
+                        <img 
+                          src="/images/foto-pessoal.png" 
+                          alt="Júlia Guarnieri - Foto Pessoal" 
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.nextElementSibling.style.display = 'flex';
+                          }}
+                        />
+                        <div className="w-full h-full bg-gradient-to-br from-teal-200 to-cyan-300 flex flex-col items-center justify-center text-center p-6" style={{display: 'none'}}>
+                          <div className="text-6xl text-teal-600 mb-4">📸</div>
+                          <p className="text-teal-700 font-medium">Adicione sua foto pessoal</p>
+                          <p className="text-sm text-teal-600 mt-2">/images/foto-pessoal.jpg</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -174,7 +180,7 @@ export default function SobreMim() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {projetos.map((projeto, index) => (
-                    <div key={projeto.nome} className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group">
+                    <div key={projeto.nome} className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 group flex flex-col min-h-[300px]">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors">
                           {projeto.nome}
@@ -187,15 +193,15 @@ export default function SobreMim() {
                           {projeto.status}
                         </span>
                       </div>
-                      <p className="text-gray-600 mb-6 leading-relaxed">
+                      <p className="text-gray-600 mb-6 leading-relaxed flex-1">
                         {projeto.descricao}
                       </p>
-                      <div className="flex justify-center">
+                      <div className="flex justify-center mt-auto">
                         <a 
                           href={projeto.link} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-6 py-2 rounded-full font-medium hover:from-teal-600 hover:to-cyan-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                          className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-3 rounded-lg font-medium hover:from-teal-600 hover:to-cyan-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
                           Ver Projeto
                         </a>
@@ -206,7 +212,6 @@ export default function SobreMim() {
               </div>
             )}
 
-            {/* Contato */}
             {activeTab === "contato" && (
               <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 transform transition-all duration-500 animate-fade-in">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">

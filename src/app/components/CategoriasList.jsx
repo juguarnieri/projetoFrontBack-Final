@@ -6,7 +6,6 @@ export default function CategoriasList({ categorias = [], onDetalhes, searchTerm
 
   const categoriasArray = Array.isArray(categorias) ? categorias : [];
   
-  // Filtrar categorias por termo de busca
   const categoriasFiltradas = categoriasArray.filter(categoria => {
     if (!searchTerm) return true;
     
@@ -17,27 +16,21 @@ export default function CategoriasList({ categorias = [], onDetalhes, searchTerm
            descricao.toLowerCase().includes(searchTerm.toLowerCase());
   });
   
-  console.log('🔍 CategoriasList recebeu:', categorias);
-  console.log('🔍 É array?:', Array.isArray(categorias));
-  console.log('🔍 Array processado:', categoriasArray);
-  console.log('🔍 Categorias filtradas:', categoriasFiltradas);
-
   const handleCardClick = (categoria) => {
-    console.log('Categoria selecionada:', categoria);
     if (onDetalhes) {
       onDetalhes(categoria);
     }
   };
 
   const cores = [
-    { bg: 'bg-gradient-to-br from-blue-50 to-blue-100', border: 'border-blue-200', text: 'text-blue-700', hover: 'hover:border-blue-400' },
-    { bg: 'bg-gradient-to-br from-green-50 to-green-100', border: 'border-green-200', text: 'text-green-700', hover: 'hover:border-green-400' },
-    { bg: 'bg-gradient-to-br from-purple-50 to-purple-100', border: 'border-purple-200', text: 'text-purple-700', hover: 'hover:border-purple-400' },
-    { bg: 'bg-gradient-to-br from-pink-50 to-pink-100', border: 'border-pink-200', text: 'text-pink-700', hover: 'hover:border-pink-400' },
-    { bg: 'bg-gradient-to-br from-orange-50 to-orange-100', border: 'border-orange-200', text: 'text-orange-700', hover: 'hover:border-orange-400' },
-    { bg: 'bg-gradient-to-br from-teal-50 to-teal-100', border: 'border-teal-200', text: 'text-teal-700', hover: 'hover:border-teal-400' },
-    { bg: 'bg-gradient-to-br from-indigo-50 to-indigo-100', border: 'border-indigo-200', text: 'text-indigo-700', hover: 'hover:border-indigo-400' },
-    { bg: 'bg-gradient-to-br from-red-50 to-red-100', border: 'border-red-200', text: 'text-red-700', hover: 'hover:border-red-400' },
+    { bg: 'bg-white', border: 'border-orange-200', text: 'text-orange-600', hover: 'hover:border-orange-400 hover:shadow-orange-100', button: 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700' },
+    { bg: 'bg-white', border: 'border-teal-200', text: 'text-teal-600', hover: 'hover:border-teal-400 hover:shadow-teal-100', button: 'bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700' },
+    { bg: 'bg-white', border: 'border-orange-300', text: 'text-orange-700', hover: 'hover:border-orange-500 hover:shadow-orange-200', button: 'bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800' },
+    { bg: 'bg-white', border: 'border-teal-300', text: 'text-teal-700', hover: 'hover:border-teal-500 hover:shadow-teal-200', button: 'bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800' },
+    { bg: 'bg-white', border: 'border-orange-400', text: 'text-orange-800', hover: 'hover:border-orange-600 hover:shadow-orange-300', button: 'bg-gradient-to-r from-orange-700 to-orange-800 hover:from-orange-800 hover:to-orange-900' },
+    { bg: 'bg-white', border: 'border-teal-400', text: 'text-teal-800', hover: 'hover:border-teal-600 hover:shadow-teal-300', button: 'bg-gradient-to-r from-teal-700 to-teal-800 hover:from-teal-800 hover:to-teal-900' },
+    { bg: 'bg-white', border: 'border-orange-500', text: 'text-orange-900', hover: 'hover:border-orange-700 hover:shadow-orange-400', button: 'bg-gradient-to-r from-orange-800 to-orange-900 hover:from-orange-900 hover:to-red-600' },
+    { bg: 'bg-white', border: 'border-teal-500', text: 'text-teal-900', hover: 'hover:border-teal-700 hover:shadow-teal-400', button: 'bg-gradient-to-r from-teal-800 to-teal-900 hover:from-teal-900 hover:to-cyan-600' },
   ];
 
   return (
@@ -50,41 +43,92 @@ export default function CategoriasList({ categorias = [], onDetalhes, searchTerm
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 justify-items-center">
-          {categoriasFiltradas.map((categoria, index) => {
-            const cor = cores[index % cores.length];
-            return (
-              <div
-                key={categoria.id || index}
-                className={`${cor.bg} ${cor.border} ${cor.hover} rounded-2xl border p-4 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1 max-w-xs w-full`}
-                onClick={() => handleCardClick(categoria)}
-                onMouseEnter={() => setHoveredCard(categoria.id || index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className="flex justify-center mb-3">
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
-                    alt={categoria.name || categoria.titulo || categoria.title || 'Categoria'}
-                    className="w-32 h-32 object-cover rounded-xl shadow-lg border border-gray-200 bg-white"
-                    style={{ backgroundColor: '#fff' }}
-                  />
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center mb-8">
+            {categoriasFiltradas.slice(0, 3).map((categoria, index) => {
+              const cor = cores[index % cores.length];
+              return (
+                <div
+                  key={categoria.id || index}
+                  className={`${cor.bg} ${cor.border} ${cor.hover} rounded-2xl border-2 p-4 sm:p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1 w-full max-w-sm min-h-[350px] sm:min-h-[380px] flex flex-col`}
+                  onClick={() => handleCardClick(categoria)}
+                  onMouseEnter={() => setHoveredCard(categoria.id || index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  <div className="flex justify-center mb-4 sm:mb-6 flex-shrink-0">
+                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 overflow-hidden rounded-xl shadow-lg border-2 border-gray-200 bg-white">
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
+                        alt={categoria.name || categoria.titulo || categoria.title || 'Categoria'}
+                        className="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-300"
+                        onError={(e) => {
+                          e.target.src = '/images/banner.png';
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col flex-1 text-center">
+                    <h3 className={`text-base sm:text-lg lg:text-xl font-bold ${cor.text} mb-2 sm:mb-3 leading-tight line-clamp-2 flex-shrink-0`}>
+                      {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
+                    </h3>
+                    <p className="text-gray-600 text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 flex-1">
+                      {categoria.descricao || categoria.description || 'Descrição da categoria'}
+                    </p>
+                    <div className="flex justify-center items-center mt-auto">
+                      <button className={`text-sm lg:text-base px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-full text-white ${cor.button} transition-all duration-300 font-semibold cursor-pointer shadow-lg hover:shadow-xl ${
+                        hoveredCard === (categoria.id || index) ? 'transform scale-105' : ''
+                      }`}>
+                        Ver mais →
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <h3 className={`text-lg font-bold ${cor.text} mb-2 text-center leading-tight`}>
-                  {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center line-clamp-2">
-                  {categoria.descricao || categoria.description || 'Descrição da categoria'}
-                </p>
-                <div className="flex justify-center items-center pt-2">
-                  <span className={`text-xs px-4 py-2 rounded-full ${cor.text} bg-white bg-opacity-80 transition-all duration-300 font-medium cursor-pointer ${
-                    hoveredCard === (categoria.id || index) ? 'bg-opacity-100 shadow-md transform scale-105' : ''
-                  }`}>
-                    Ver mais →
-                  </span>
+              );
+            })}
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 justify-items-center">
+            {categoriasFiltradas.slice(3, 6).map((categoria, index) => {
+              const cor = cores[(index + 3) % cores.length];
+              return (
+                <div
+                  key={categoria.id || (index + 3)}
+                  className={`${cor.bg} ${cor.border} ${cor.hover} rounded-2xl border-2 p-4 sm:p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-1 w-full max-w-sm min-h-[350px] sm:min-h-[380px] flex flex-col`}
+                  onClick={() => handleCardClick(categoria)}
+                  onMouseEnter={() => setHoveredCard(categoria.id || (index + 3))}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  <div className="flex justify-center mb-4 sm:mb-6 flex-shrink-0">
+                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 overflow-hidden rounded-xl shadow-lg border-2 border-gray-200 bg-white">
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${categoria.image_url}`}
+                        alt={categoria.name || categoria.titulo || categoria.title || 'Categoria'}
+                        className="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-300"
+                        onError={(e) => {
+                          e.target.src = '/images/banner.png';
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col flex-1 text-center">
+                    <h3 className={`text-base sm:text-lg lg:text-xl font-bold ${cor.text} mb-2 sm:mb-3 leading-tight line-clamp-2 flex-shrink-0`}>
+                      {categoria.titulo || categoria.title || categoria.name || 'Categoria'}
+                    </h3>
+                    <p className="text-gray-600 text-sm lg:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3 flex-1">
+                      {categoria.descricao || categoria.description || 'Descrição da categoria'}
+                    </p>
+                    <div className="flex justify-center items-center mt-auto">
+                      <button className={`text-sm lg:text-base px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-full text-white ${cor.button} transition-all duration-300 font-semibold cursor-pointer shadow-lg hover:shadow-xl ${
+                        hoveredCard === (categoria.id || (index + 3)) ? 'transform scale-105' : ''
+                      }`}>
+                        Ver mais →
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
