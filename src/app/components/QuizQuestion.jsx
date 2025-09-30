@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function QuizQuestion({ 
   question, 
@@ -10,16 +10,6 @@ export default function QuizQuestion({
   timeLeft,
   onTimeUp 
 }) {
-  const [shuffledOptions, setShuffledOptions] = useState([]);
-
-  useEffect(() => {
-
-    if (question?.options) {
-      const shuffled = [...question.options].sort(() => Math.random() - 0.5);
-      setShuffledOptions(shuffled);
-    }
-  }, [question]);
-
   useEffect(() => {
     if (timeLeft === 0) {
       onTimeUp();
@@ -29,61 +19,39 @@ export default function QuizQuestion({
   if (!question) return null;
 
   const progressPercentage = (questionNumber / totalQuestions) * 100;
-  const timePercentage = (timeLeft / 30) * 100;
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:shadow-3xl quiz-card relative z-10">
-
-      <div className="bg-gradient-to-r from-green-500 via-orange-500 to-yellow-500 p-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-        <div className="relative z-10">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-white font-semibold text-lg flex items-center">
-              <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-sm">
-                🐾
-              </span>
-              🐕 Pergunta {questionNumber} de {totalQuestions} 🦴
-            </span>
-            <div className="flex items-center text-white bg-white/20 rounded-full px-4 py-2">
-              <div className={`w-3 h-3 rounded-full mr-2 ${timeLeft <= 10 ? 'bg-red-400 animate-pulse' : 'bg-green-400'}`}></div>
-              <span className={`text-lg font-bold ${timeLeft <= 10 ? 'text-red-200 animate-pulse' : 'text-white'}`}>
-                {timeLeft}s
-              </span>
-            </div>
-          </div>
-          
-          <div className="w-full bg-white bg-opacity-30 rounded-full h-3 mb-2">
-            <div 
-              className="bg-white rounded-full h-3 transition-all duration-500 shadow-lg"
-              style={{ width: `${progressPercentage}%` }}
-            ></div>
-          </div>
-          
-          <div className="w-full bg-white bg-opacity-30 rounded-full h-2">
-            <div 
-              className={`h-2 rounded-full transition-all duration-1000 ${
-                timeLeft <= 10 ? 'bg-red-400 animate-pulse' : timeLeft <= 20 ? 'bg-yellow-400' : 'bg-green-400'
-              }`}
-              style={{ width: `${timePercentage}%` }}
-            ></div>
-          </div>
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+      {/* Header simples */}
+      <div className="bg-gradient-to-r from-green-500 to-orange-500 p-4">
+        <div className="flex justify-between items-center text-white">
+          <span className="font-semibold">
+            🐕 Pergunta {questionNumber} de {totalQuestions}
+          </span>
+          <span className={`font-bold ${timeLeft <= 10 ? 'text-red-200' : 'text-white'}`}>
+            ⏰ {timeLeft}s
+          </span>
+        </div>
+        
+        <div className="w-full bg-white bg-opacity-30 rounded-full h-2 mt-3">
+          <div 
+            className="bg-white rounded-full h-2 transition-all duration-500"
+            style={{ width: `${progressPercentage}%` }}
+          ></div>
         </div>
       </div>
 
-      <div className="p-8 md:p-12">
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <span className="text-white text-2xl font-bold">🐕</span>
-          </div>
-          <div className="bg-gradient-to-r from-green-50 to-orange-50 rounded-3xl p-8 border border-green-200 shadow-md">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-800 leading-relaxed text-center">
-              {question.question}
-            </h2>
-          </div>
+      <div className="p-6">
+        {/* Pergunta */}
+        <div className="text-center mb-8">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">
+            {question.question}
+          </h2>
         </div>
 
-        <div className="space-y-4">
-          {shuffledOptions.map((option, index) => {
+        {/* Alternativas */}
+        <div className="space-y-3">
+          {question.options.map((option, index) => {
             const isSelected = selectedAnswer === index;
             const isCorrect = index === question.correct;
             const isWrong = showFeedback && isSelected && !isCorrect;
@@ -91,37 +59,37 @@ export default function QuizQuestion({
             
             return (
               <button
-                key={`${question.id}-${index}`}
+                key={index}
                 onClick={() => !showFeedback && onAnswer(index)}
                 disabled={showFeedback}
-                className={`w-full group relative p-6 rounded-2xl text-left font-medium transition-all duration-300 transform hover:scale-105 ${
+                className={`w-full p-4 rounded-lg text-left font-medium transition-all duration-300 ${
                   showFeedback
                     ? shouldHighlight
-                      ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg'
+                      ? 'bg-green-500 text-white'
                       : isWrong
-                      ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-500 border border-gray-200'
+                      ? 'bg-red-500 text-white'
+                      : 'bg-gray-100 text-gray-500'
                     : isSelected
-                    ? 'bg-gradient-to-r from-green-500 to-orange-500 text-white shadow-lg'
-                    : 'bg-white border-2 border-gray-200 hover:border-green-300 text-gray-700 hover:bg-green-50'
-                } shadow-md hover:shadow-xl`}
+                    ? 'bg-gradient-to-r from-green-500 to-orange-500 text-white'
+                    : 'bg-gray-50 border border-gray-200 hover:border-green-300 text-gray-700 hover:bg-green-50'
+                }`}
               >
                 <div className="flex items-center">
-                  <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full text-lg font-bold mr-6 flex-shrink-0 ${
+                  <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold mr-4 ${
                     showFeedback && shouldHighlight
                       ? 'bg-green-100 text-green-600'
                       : showFeedback && isWrong
                       ? 'bg-red-100 text-red-600'
                       : isSelected
                       ? 'bg-white/20 text-white'
-                      : 'bg-green-100 text-green-600 group-hover:bg-green-200'
+                      : 'bg-green-100 text-green-600'
                   }`}>
                     {String.fromCharCode(65 + index)}
                   </span>
-                  <span className="flex-1 text-lg leading-relaxed pr-4">{option}</span>
+                  <span className="flex-1">{option}</span>
                   
                   {showFeedback && (
-                    <span className="text-3xl ml-4 flex-shrink-0">
+                    <span className="text-xl ml-2">
                       {shouldHighlight ? '✅' : isWrong ? '❌' : ''}
                     </span>
                   )}
@@ -131,17 +99,14 @@ export default function QuizQuestion({
           })}
         </div>
 
+        {/* Explicação */}
         {showFeedback && question.explanation && (
-          <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-orange-50 rounded-2xl border border-green-200 transform transition-all duration-500">
+          <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
             <div className="flex items-start">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-white text-xl">💡</span>
-              </div>
+              <span className="text-xl mr-3">💡</span>
               <div>
-                <h3 className="font-bold text-green-800 mb-2 text-lg">Explicação:</h3>
-                <p className="text-green-700 leading-relaxed text-lg">
-                  {question.explanation}
-                </p>
+                <h3 className="font-bold text-green-800 mb-1">Explicação:</h3>
+                <p className="text-green-700">{question.explanation}</p>
               </div>
             </div>
           </div>

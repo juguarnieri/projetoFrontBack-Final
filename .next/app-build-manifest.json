@@ -17,6 +17,11 @@
       "static/css/app/listagem/page.css",
       "static/chunks/app/listagem/page.js"
     ],
+    "/quiz/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/quiz/page.js"
+    ],
     "/listagem/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -28,11 +33,6 @@
       "static/chunks/main-app.js",
       "static/css/app/artigos/[id]/page.css",
       "static/chunks/app/artigos/[id]/page.js"
-    ],
-    "/quiz/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/quiz/page.js"
     ],
     "/sobre-mim/page": [
       "static/chunks/webpack.js",

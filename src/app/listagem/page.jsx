@@ -83,9 +83,9 @@ export default function Listagem() {
   const handleDetalhes = (categoria) => {
     router.push(`/listagem/${categoria.id}`);
     
-    toast.info(`🔍 Carregando categoria: ${categoria.titulo}`, {
+    toast.info(`🔍 Carregando categoria...`, {
       position: "top-right",
-      autoClose: 2000,
+      autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

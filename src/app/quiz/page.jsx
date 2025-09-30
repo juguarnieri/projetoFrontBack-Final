@@ -40,7 +40,13 @@ export default function Quiz() {
   const loadQuestions = async () => {
     setGameState('loading');
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/questions`);
+      console.log('🔗 Buscando perguntas do backend...');
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/questions`;
+      console.log('🌍 URL da API:', apiUrl);
+      
+      const response = await axios.get(apiUrl);
+      console.log('✅ Resposta da API:', response.data);
+      
       if (response.data?.data && response.data.data.length > 0) {
         const apiQuestions = response.data.data.map(q => ({
           id: q.id,
@@ -49,17 +55,20 @@ export default function Quiz() {
           correct: q.alternatives.findIndex(alt => alt.is_correct),
           explanation: q.explanation || "Consulte nossos artigos para saber mais sobre este tópico!"
         }));
+        
+        console.log('📝 Perguntas processadas:', apiQuestions.length);
         setQuestions(apiQuestions);
         
         setTimeout(() => {
           setGameState('playing');
           setIsTimerActive(true);
-        }, 2000);
+        }, 1500);
       } else {
+        console.error('❌ Nenhuma pergunta encontrada na resposta');
         setGameState('error');
       }
     } catch (error) {
-      console.error('Erro ao carregar perguntas da API:', error);
+      console.error('❌ Erro ao carregar perguntas:', error);
       setGameState('error');
     }
   };
@@ -155,7 +164,7 @@ export default function Quiz() {
             {gameState === 'intro' && (
               <QuizIntro 
                 onStart={handleStartQuiz}
-                questionsCount={questions.length || 10}
+                questionsCount={15}
               />
             )}
 
@@ -207,70 +216,60 @@ export default function Quiz() {
             )}
           </div>
         </section>
-        <ScrollToTop />
-      </main>
-
-      <section className="bg-gradient-to-br from-orange-50 via-white to-teal-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-block p-3 bg-orange-100 rounded-full mb-4">
-              <span className="text-4xl">🐕</span>
+        
+        {/* Seção de Curiosidades */}
+        <section className="bg-gradient-to-br from-green-50 via-white to-orange-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <div className="inline-block p-3 bg-orange-100 rounded-full mb-4">
+                <span className="text-4xl">🐕</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Curiosidades Caninas
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-orange-500 mx-auto mb-4"></div>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Descubra fatos fascinantes sobre nossos companheiros de quatro patas
+              </p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              Curiosidades Caninas
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-teal-500 mx-auto mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Descubra fatos fascinantes sobre nossos companheiros de quatro patas
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-3xl transform rotate-1 transition-transform group-hover:rotate-2"></div>
-              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 transform hover:-translate-y-2">
                 <div className="text-center">
-                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-6">
-                    <span className="text-4xl">👃</span>
+                  <div className="inline-block p-4 bg-orange-100 rounded-full mb-4">
+                    <span className="text-3xl">👃</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-orange-600 mb-4">Super Olfato</h3>
-                  <div className="w-16 h-0.5 bg-orange-500 mx-auto mb-4"></div>
+                  <h3 className="text-xl font-bold text-orange-600 mb-3">Super Olfato</h3>
+                  <div className="w-12 h-0.5 bg-orange-500 mx-auto mb-3"></div>
                   <p className="text-gray-700 leading-relaxed">
                     Os cães têm entre <span className="font-semibold text-orange-600">220 a 300 milhões</span> de receptores olfativos, 
-                    enquanto humanos têm apenas 6 milhões! Isso significa que podem detectar odores 
-                    até 100.000 vezes melhor que nós.
+                    enquanto humanos têm apenas 6 milhões! Podem detectar odores até 100.000 vezes melhor que nós.
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-teal-600 rounded-3xl transform -rotate-1 transition-transform group-hover:-rotate-2"></div>
-              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 transform hover:-translate-y-2">
                 <div className="text-center">
-                  <div className="inline-block p-4 bg-teal-100 rounded-full mb-6">
-                    <span className="text-4xl">💤</span>
+                  <div className="inline-block p-4 bg-green-100 rounded-full mb-4">
+                    <span className="text-3xl">💤</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-teal-600 mb-4">Sonhos Caninos</h3>
-                  <div className="w-16 h-0.5 bg-teal-500 mx-auto mb-4"></div>
+                  <h3 className="text-xl font-bold text-green-600 mb-3">Sonhos Caninos</h3>
+                  <div className="w-12 h-0.5 bg-green-500 mx-auto mb-3"></div>
                   <p className="text-gray-700 leading-relaxed">
-                    Assim como os humanos, os cães <span className="font-semibold text-teal-600">sonham</span>! 
+                    Assim como os humanos, os cães <span className="font-semibold text-green-600">sonham</span>! 
                     Durante o sono REM, eles podem mover as patas e fazer ruídos, 
                     provavelmente revivendo suas aventuras do dia.
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-pink-500 rounded-3xl transform rotate-1 transition-transform group-hover:rotate-2"></div>
-              <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 transform group-hover:-translate-y-2">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 transform hover:-translate-y-2">
                 <div className="text-center">
-                  <div className="inline-block p-4 bg-red-100 rounded-full mb-6">
-                    <span className="text-4xl">❤️</span>
+                  <div className="inline-block p-4 bg-red-100 rounded-full mb-4">
+                    <span className="text-3xl">❤️</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-red-600 mb-4">Batimento Cardíaco</h3>
-                  <div className="w-16 h-0.5 bg-red-500 mx-auto mb-4"></div>
+                  <h3 className="text-xl font-bold text-red-600 mb-3">Batimento Cardíaco</h3>
+                  <div className="w-12 h-0.5 bg-red-500 mx-auto mb-3"></div>
                   <p className="text-gray-700 leading-relaxed">
                     O coração de um cão bate entre <span className="font-semibold text-red-600">70-120 batimentos</span> 
                     por minuto, mais rápido que o humano. Cães menores tendem a ter 
@@ -280,8 +279,10 @@ export default function Quiz() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        
+        <ScrollToTop />
+      </main>
 
       <Footer />
     </div>
