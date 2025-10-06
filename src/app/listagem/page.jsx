@@ -132,7 +132,7 @@ export default function Listagem() {
         />
         
         <div className="text-center mt-12 mb-8">
-          <p className="text-gray-700 text-lg font-medium max-w-3xl mx-auto">
+          <p className="text-gray-700 text-sm max-w-3xl mx-auto">
             Bem-vindo às nossas categorias! Aqui você encontra dicas especializadas e artigos práticos para cuidar melhor do seu melhor amigo.
           </p>
         </div>
@@ -152,26 +152,26 @@ export default function Listagem() {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
                   ⚖️ Peso Ideal do seu Cão
                 </h2>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                <p className="text-sm text-gray-600 mb-8 leading-relaxed">
                   Manter o peso ideal é fundamental para a saúde e bem-estar do seu cão. 
                   Um peso adequado previne doenças, melhora a qualidade de vida e aumenta a longevidade do seu pet.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center justify-center lg:justify-start">
                     <span className="text-2xl mr-3">🐕‍🦺</span>
-                    <span className="text-gray-700">Porte pequeno: 1-10kg</span>
+                    <span className="text-sm text-gray-700">Porte pequeno: 1-10kg</span>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start">
                     <span className="text-2xl mr-3">🐕</span>
-                    <span className="text-gray-700">Porte médio: 11-25kg</span>
+                    <span className="text-sm text-gray-700">Porte médio: 11-25kg</span>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start">
                     <span className="text-2xl mr-3">🐕‍🦮</span>
-                    <span className="text-gray-700">Porte grande: 26-45kg</span>
+                    <span className="text-sm text-gray-700">Porte grande: 26-45kg</span>
                   </div>
                   <div className="flex items-center justify-center lg:justify-start">
                     <span className="text-2xl mr-3">🦮</span>
-                    <span className="text-gray-700">Porte gigante: 45kg+</span>
+                    <span className="text-sm text-gray-700">Porte gigante: 45kg+</span>
                   </div>
                 </div>
               </div>

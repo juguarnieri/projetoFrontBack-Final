@@ -44,6 +44,8 @@
 ### Ferramentas de Desenvolvimento
 - **[ESLint](https://eslint.org/)** - Linter para JavaScript
 - **[PostCSS](https://postcss.org/)** - Processador CSS
+- **[Jest](https://jestjs.io/)** - Framework de testes JavaScript
+- **[Testing Library](https://testing-library.com/)** - Utilitários para testes de componentes
 
 ### Recursos Adicionais
 - **App Router** - Sistema de roteamento do Next.js 13+
@@ -107,6 +109,46 @@ yarn start
 - **Desenvolvimento**: http://localhost:3000
 - **Produção**: http://localhost:3000
 
+### 6. Execute os Testes
+```bash
+# Executar todos os testes
+npm test
+
+# Executar testes em modo watch
+npm run test:watch
+
+# Ou usando yarn
+yarn test
+yarn test:watch
+```
+
+---
+
+## 🧪 Testes
+
+O projeto implementa testes unitários e de integração para garantir qualidade e funcionamento correto.
+
+### Estrutura de Testes
+```
+src/
+├── __tests__/
+│   ├── Card.test.jsx              # Teste unitário do componente Card
+│   └── api-integration.test.js    # Testes de integração com API
+├── jest.config.js                 # Configuração do Jest
+└── jest.setup.js                  # Setup dos testes
+```
+
+### Tecnologias de Teste
+- **Jest**: Framework principal de testes
+- **Testing Library**: Utilitários para testes de componentes React
+- **jsdom**: Ambiente de DOM simulado
+
+### Cobertura de Testes
+- ✅ **Componente Card**: Renderização, props, classes CSS
+- ✅ **API Integration**: Endpoints de categorias e quiz
+- ✅ **Error Handling**: Tratamento de erros e estados
+- ✅ **Mock Services**: Simulação de chamadas de API
+
 ---
 
 ## 📁 Estrutura do Projeto
@@ -121,6 +163,9 @@ projetoFrontBack-Final/
 │   │   └── cachorro-idade.png
 │   └── 🖼️ *.svg                # Ícones SVG
 ├── 📁 src/
+│   ├── 📁 __tests__/            # Testes unitários e de integração
+│   │   ├── 🧪 Card.test.jsx     # Teste do componente Card
+│   │   └── 🧪 api-integration.test.js # Testes de API
 │   └── 📁 app/                  # App Router do Next.js
 │       ├── 📁 artigos/          # Páginas de artigos
 │       │   └── 📁 [id]/        # Artigo dinâmico por ID
@@ -148,6 +193,8 @@ projetoFrontBack-Final/
 │       ├── 🏗️ layout.jsx        # Layout principal
 │       └── 🏠 page.jsx          # Página inicial
 ├── ⚙️ eslint.config.mjs         # Configuração ESLint
+├── 🧪 jest.config.js            # Configuração do Jest
+├── 🧪 jest.setup.js             # Setup dos testes
 ├── 📝 jsconfig.json             # Configuração JavaScript
 ├── ⚡ next.config.mjs           # Configuração Next.js
 ├── 📦 package.json              # Dependências e scripts
@@ -397,7 +444,9 @@ NEXT_PUBLIC_API_URL=https://sua-api-backend.com
   "dev": "next dev",           // Servidor de desenvolvimento
   "build": "next build",       // Build de produção
   "start": "next start",       // Servidor de produção
-  "lint": "eslint"             // Verificação de código
+  "lint": "eslint",            // Verificação de código
+  "test": "jest",              // Execução dos testes
+  "test:watch": "jest --watch" // Execução dos testes em modo watch
 }
 ```
 

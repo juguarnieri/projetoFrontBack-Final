@@ -64,7 +64,7 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-12 sm:py-16">
+      <section className="bg-gradient-to-r from-orange-300 to-orange-400 text-white py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             📚 Explore Nossas Dicas Completas

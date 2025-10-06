@@ -228,7 +228,7 @@ export default function Quiz() {
                 Curiosidades Caninas
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-orange-500 mx-auto mb-4"></div>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-sm text-gray-600 max-w-2xl mx-auto">
                 Descubra fatos fascinantes sobre nossos companheiros de quatro patas
               </p>
             </div>
@@ -241,7 +241,7 @@ export default function Quiz() {
                   </div>
                   <h3 className="text-xl font-bold text-orange-600 mb-3">Super Olfato</h3>
                   <div className="w-12 h-0.5 bg-orange-500 mx-auto mb-3"></div>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-sm text-gray-700 leading-relaxed">
                     Os cães têm entre <span className="font-semibold text-orange-600">220 a 300 milhões</span> de receptores olfativos, 
                     enquanto humanos têm apenas 6 milhões! Podem detectar odores até 100.000 vezes melhor que nós.
                   </p>
@@ -255,7 +255,7 @@ export default function Quiz() {
                   </div>
                   <h3 className="text-xl font-bold text-green-600 mb-3">Sonhos Caninos</h3>
                   <div className="w-12 h-0.5 bg-green-500 mx-auto mb-3"></div>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-sm text-gray-700 leading-relaxed">
                     Assim como os humanos, os cães <span className="font-semibold text-green-600">sonham</span>! 
                     Durante o sono REM, eles podem mover as patas e fazer ruídos, 
                     provavelmente revivendo suas aventuras do dia.
@@ -270,7 +270,7 @@ export default function Quiz() {
                   </div>
                   <h3 className="text-xl font-bold text-red-600 mb-3">Batimento Cardíaco</h3>
                   <div className="w-12 h-0.5 bg-red-500 mx-auto mb-3"></div>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-sm text-gray-700 leading-relaxed">
                     O coração de um cão bate entre <span className="font-semibold text-red-600">70-120 batimentos</span> 
                     por minuto, mais rápido que o humano. Cães menores tendem a ter 
                     batimentos mais acelerados que os maiores.
