@@ -28,6 +28,7 @@
 - 🔍 **Busca Avançada**: Encontre rapidamente o conteúdo desejado
 - 📱 **Design Responsivo**: Experiência perfeita em todos os dispositivos
 - 🎨 **Animações Fluidas**: Interface moderna com efeitos visuais atraentes
+- ❌ **Página de Erro Personalizada**: Página 404 estilizada para manter a experiência do usuário
 
 ---
 
@@ -44,8 +45,6 @@
 ### Ferramentas de Desenvolvimento
 - **[ESLint](https://eslint.org/)** - Linter para JavaScript
 - **[PostCSS](https://postcss.org/)** - Processador CSS
-- **[Jest](https://jestjs.io/)** - Framework de testes JavaScript
-- **[Testing Library](https://testing-library.com/)** - Utilitários para testes de componentes
 
 ### Recursos Adicionais
 - **App Router** - Sistema de roteamento do Next.js 13+
@@ -61,15 +60,75 @@
 - **Node.js** (versão 18 ou superior)
 - **npm** ou **yarn**
 - **Git**
+- **Banco de Dados** (MySQL, PostgreSQL ou similar para o backend)
 
 ### 1. Clone o Repositório
+
+#### Opção 1: Clonar apenas o Frontend
 ```bash
 git clone https://github.com/juguarnieri/projetoFrontBack-Final.git
 cd projetoFrontBack-Final
 ```
 
-### 2. Instale as Dependências
+#### Opção 2: Clonar o Projeto Completo (Frontend + Backend)
 ```bash
+# Clone o repositório principal
+git clone https://github.com/juguarnieri/projetoFrontBack-Final.git
+
+# Entre no diretório do projeto
+cd projetoFrontBack-Final
+
+# Se o backend estiver em um repositório separado, clone-o também
+cd ..
+git clone https://github.com/juguarnieri/projetoFrontBack-Backend.git
+
+# Estrutura de pastas sugerida:
+# projeto/
+# ├── projetoFrontBack-Final/     (Frontend)
+# └── projetoFrontBack-Backend/   (Backend)
+```
+
+#### Opção 3: Clonar usando SSH
+```bash
+# Frontend
+git clone git@github.com:juguarnieri/projetoFrontBack-Final.git
+
+# Backend (se aplicável)
+git clone git@github.com:juguarnieri/projetoFrontBack-Backend.git
+```
+
+### 2. Configure o Backend (se aplicável)
+```bash
+# Entre no diretório do backend
+cd projetoFrontBack-Backend
+
+# Instale as dependências
+npm install
+
+# Configure o arquivo .env do backend
+cp .env.example .env
+
+# Configure as variáveis de ambiente do banco de dados
+# DB_HOST=localhost
+# DB_PORT=3306
+# DB_USER=seu_usuario
+# DB_PASSWORD=sua_senha
+# DB_NAME=dogcare
+
+# Execute as migrations do banco de dados
+npm run migrate
+
+# Inicie o servidor backend
+npm run dev
+# O backend estará rodando em http://localhost:3001
+```
+
+### 3. Configure o Frontend
+```bash
+# Volte para o diretório do frontend
+cd ../projetoFrontBack-Final
+
+# Instale as Dependências
 # Usando npm
 npm install
 
@@ -77,13 +136,15 @@ npm install
 yarn install
 ```
 
-### 3. Configure as Variáveis de Ambiente
-Crie um arquivo `.env.local` na raiz do projeto:
+### 4. Configure as Variáveis de Ambiente do Frontend
+Crie um arquivo `.env.local` na raiz do projeto frontend:
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
-### 4. Execute o Projeto
+**Nota:** Certifique-se de que a URL da API aponta para onde seu backend está rodando.
+
+### 5. Execute o Projeto Frontend
 
 #### Desenvolvimento
 ```bash
@@ -105,49 +166,40 @@ yarn build
 yarn start
 ```
 
-### 5. Acesse a Aplicação
-- **Desenvolvimento**: http://localhost:3000
-- **Produção**: http://localhost:3000
+### 6. Acesse a Aplicação
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001/api
 
-### 6. Execute os Testes
+### 🔄 Fluxo Completo de Instalação
+
+1. **Clone os repositórios** (frontend e backend)
+2. **Configure o banco de dados** e execute as migrations
+3. **Inicie o servidor backend**
+4. **Configure as variáveis de ambiente do frontend**
+5. **Inicie o servidor frontend**
+6. **Acesse a aplicação no navegador**
+
+### ⚠️ Troubleshooting de Instalação
+
+#### Problema: Porta já em uso
 ```bash
-# Executar todos os testes
-npm test
-
-# Executar testes em modo watch
-npm run test:watch
-
-# Ou usando yarn
-yarn test
-yarn test:watch
+# Mude a porta no arquivo de configuração ou mate o processo
+# Para verificar qual processo está usando a porta:
+lsof -i :3000  # Linux/Mac
+netstat -ano | findstr :3000  # Windows
 ```
 
----
+#### Problema: Erro de conexão com o backend
+- Verifique se o backend está rodando
+- Confirme se a URL no `.env.local` está correta
+- Verifique se não há firewall bloqueando a conexão
 
-## 🧪 Testes
-
-O projeto implementa testes unitários e de integração para garantir qualidade e funcionamento correto.
-
-### Estrutura de Testes
+#### Problema: Erro de dependências
+```bash
+# Limpe o cache e reinstale
+rm -rf node_modules package-lock.json
+npm install
 ```
-src/
-├── __tests__/
-│   ├── Card.test.jsx              # Teste unitário do componente Card
-│   └── api-integration.test.js    # Testes de integração com API
-├── jest.config.js                 # Configuração do Jest
-└── jest.setup.js                  # Setup dos testes
-```
-
-### Tecnologias de Teste
-- **Jest**: Framework principal de testes
-- **Testing Library**: Utilitários para testes de componentes React
-- **jsdom**: Ambiente de DOM simulado
-
-### Cobertura de Testes
-- ✅ **Componente Card**: Renderização, props, classes CSS
-- ✅ **API Integration**: Endpoints de categorias e quiz
-- ✅ **Error Handling**: Tratamento de erros e estados
-- ✅ **Mock Services**: Simulação de chamadas de API
 
 ---
 
@@ -163,10 +215,7 @@ projetoFrontBack-Final/
 │   │   └── cachorro-idade.png
 │   └── 🖼️ *.svg                # Ícones SVG
 ├── 📁 src/
-│   ├── 📁 __tests__/            # Testes unitários e de integração
-│   │   ├── 🧪 Card.test.jsx     # Teste do componente Card
-│   │   └── 🧪 api-integration.test.js # Testes de API
-│   └── 📁 app/                  # App Router do Next.js
+│   ├── 📁 app/                  # App Router do Next.js
 │       ├── 📁 artigos/          # Páginas de artigos
 │       │   └── 📁 [id]/        # Artigo dinâmico por ID
 │       ├── 📁 components/       # Componentes React
@@ -189,12 +238,11 @@ projetoFrontBack-Final/
 │       │   ├── 📄 page.jsx      # Página principal do quiz
 │       │   └── 🎨 quiz-animations.css
 │       ├── 📁 sobre-mim/        # Página sobre desenvolvedor
+│       ├── 📁 not-found/        # Página de erro personalizada
 │       ├── 🎨 globals.css       # Estilos globais
 │       ├── 🏗️ layout.jsx        # Layout principal
 │       └── 🏠 page.jsx          # Página inicial
 ├── ⚙️ eslint.config.mjs         # Configuração ESLint
-├── 🧪 jest.config.js            # Configuração do Jest
-├── 🧪 jest.setup.js             # Setup dos testes
 ├── 📝 jsconfig.json             # Configuração JavaScript
 ├── ⚡ next.config.mjs           # Configuração Next.js
 ├── 📦 package.json              # Dependências e scripts
@@ -240,6 +288,12 @@ projetoFrontBack-Final/
 - **Animações**: Efeitos hover e transformações
 - **Conteúdo Educativo**: Fatos interessantes sobre cães
 - **Layout Responsivo**: Adaptação para mobile/desktop
+
+### ❌ Página de Erro Personalizada
+- **Mensagem Amigável**: Informa ao usuário que a página não foi encontrada.
+- **Botões de Navegação**: Permite voltar à página inicial ou à página anterior.
+- **Sugestões Úteis**: Links para explorar outras áreas do site.
+- **Design Temático**: Visual alinhado ao tema de cuidados com cães.
 
 ### 👩‍💻 Sobre Desenvolvedor
 - **Perfil Profissional**: Apresentação da desenvolvedora
@@ -444,9 +498,7 @@ NEXT_PUBLIC_API_URL=https://sua-api-backend.com
   "dev": "next dev",           // Servidor de desenvolvimento
   "build": "next build",       // Build de produção
   "start": "next start",       // Servidor de produção
-  "lint": "eslint",            // Verificação de código
-  "test": "jest",              // Execução dos testes
-  "test:watch": "jest --watch" // Execução dos testes em modo watch
+  "lint": "eslint"             // Verificação de código
 }
 ```
 

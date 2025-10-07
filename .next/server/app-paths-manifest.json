@@ -1,6 +1,10 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
+  "/listagem/[id]/page": "app/listagem/[id]/page.js",
+  "/artigos/[id]/page": "app/artigos/[id]/page.js",
+  "/sobre-mim/page": "app/sobre-mim/page.js",
+  "/quiz/page": "app/quiz/page.js",
   "/listagem/page": "app/listagem/page.js",
-  "/sobre-mim/page": "app/sobre-mim/page.js"
+  "/_not-found/page": "app/_not-found/page.js"
 }
